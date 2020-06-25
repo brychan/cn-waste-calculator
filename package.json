@@ -16,7 +16,7 @@
   },
   "engines": {
     "npm": "6.13.x",
-    "node": "13.8.x",
+    "node": "13.8.x"
   },
   "scripts": {
     "dev": "react-scripts start",
