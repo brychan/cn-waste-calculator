@@ -1,0 +1,27 @@
+.form-control::-webkit-input-placeholder {
+  color: #bec6cc;
+}
+.form-control:-moz-placeholder {
+  color: #bec6cc;
+}
+.form-control::-moz-placeholder {
+  color: #bec6cc;
+}
+.form-control::placeholder {
+  color: #bec6cc;
+}
+.form-control:-ms-input-placeholder {
+  color: #bec6cc;
+}
+.search-results-wrapper {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	transition: margin .5s;
+	margin: 0 0 0 -250px;
+}
+
+.search-results-wrapper.is-nav-open{
+	margin-left: 0;
+}
+
