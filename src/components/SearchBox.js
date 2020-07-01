@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Container, Row, Col, Button } from 'reactstrap';
+import { Row, Col, Button } from 'reactstrap';
 
 import SearchInput from './SearchInput';
 import SearchResults from './SearchResults';
@@ -20,7 +20,7 @@ class SearchBox extends React.Component {
 
 	getResults(value) {
 		let lowerCaseValue = value.toLowerCase();
-		let results = this.props.list.filter((ingredient) => ingredient.rawName.toLowerCase().includes(lowerCaseValue));
+		let results = this.props.list.filter((ingredient) => ingredient.name.toLowerCase().includes(lowerCaseValue));
 		return results;
 	}
 
@@ -81,7 +81,7 @@ class SearchBox extends React.Component {
 				</Col>
 				<div className="w-100"></div>
 
-				<Col className="px-4">
+				<Col className="px-4 bg-dark">
 					<SearchInput
 						currentValue={this.state.ingredientInput} 
 						onInputChange={this.handleChange} />

@@ -14,29 +14,88 @@ class App extends React.Component {
       allIngredients: [],
       addedIngredients: [],
       total: 0,
+      isLoading: true,
     }
     this.handleAdd = this.handleAdd.bind(this);
     this.handleAmountChange = this.handleAmountChange.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
   }
   callAPI() {
-    fetch("http://192.168.1.159:9001/ingredients")
+    fetch("http://192.168.1.159:9001/book")
       .then(res => res.text())
-      .then(res => this.setState({ allIngredients: JSON.parse(res) }));
+      .then(res => {
+        this.createSearchableTable(JSON.parse(res));
+        this.setState({ allIngredients: this.createSearchableTable(JSON.parse(res)) });
+      });
   }
-  componentWillMount() {
+  createSearchableTable(response) {
+    /*
+      Parse all to one single searchable table with
+      id, name, avg price, unit, TYPE (for highlighting recipe etc.)
+    */
+
+    let table = [];
+    response.ingredients.forEach((ingredient) => {
+      let item = {
+        id: ingredient.id,
+        searchableId: uuidv4(),
+        name: ingredient.name,
+        avgPrice: ingredient.average_price_unit,
+        unit: ingredient.unit,
+        type: 'ingredient'
+      }
+      table.push(item);
+    });
+    response.processedIngredients.forEach((pIngredient) => {
+      let baseIngredient = table.find( o => o.id === pIngredient.ingredient && o.type === 'ingredient');
+      let item = {
+        id: pIngredient.id,
+        searchableId: uuidv4(),
+        name: pIngredient.name,
+        avgPrice: baseIngredient.avgPrice / pIngredient.yield,
+        unit: baseIngredient.unit,
+        type: 'processedIngredient'
+      }
+      table.push(item);
+    });
+    response.recipes.forEach((recipe) => {
+      let price = response.recipesIngredients.map((ri) => {
+        let result = 0;
+        if (recipe.id === ri.recipe) {
+          let ingredient = {} 
+          if (ri.type === 'i') {
+            ingredient = table.find( o => o.id === ri.ingredient && o.type === 'ingredient');
+
+          } else {
+            ingredient = table.find( o => o.id === ri.processed_ingredient && o.type === 'processedIngredient');
+          }
+          result = ingredient ? ingredient.avgPrice * ri.amount : 0;
+        }
+        return result;
+      })
+      let item = {
+        id: recipe.id,
+        searchableId: uuidv4(),
+        name: recipe.name,
+        avgPrice: price.reduce((a, b) => (a+b), 0),
+        unit: recipe.output_weight_unit,
+        type: 'recipe'
+      }
+      table.push(item);
+    })
+    this.setState({ isLoading: false });
+    return table;
+  }
+  componentDidMount() {
     this.callAPI();
   }
 
   handleAdd(ingredient){
     let addedIngredient = {
+      ...ingredient,
+      amountInput: 0,
       listId: uuidv4(),
-      id: ingredient.id,
-      amountInput: '',
-      rawName: ingredient.rawName,
-      gramprice: ingredient.gramprice
     }
-
     this.setState({ 
       addedIngredients: [...this.state.addedIngredients, addedIngredient],
     });
@@ -44,8 +103,7 @@ class App extends React.Component {
   }
 
   calculateTotal(list){
-    console.log(list);
-    let total = list.reduce((acc, item) => parseFloat(acc) + (parseFloat(item.gramprice) * parseFloat(item.amountInput ? item.amountInput : 0)), 0);
+    let total = list.reduce((acc, item) => parseFloat(acc) + (parseFloat(item.avgPrice) * parseFloat(item.amountInput ? item.amountInput : 0)), 0);
     return total;
   }
 
@@ -63,10 +121,10 @@ class App extends React.Component {
             ...item,
             amountInput: value
           }
-          total += value * item.gramprice;
+          total += value * item.avgPrice;
           return updatedItem;
         }
-      total += item.amountInput * item.gramprice;
+      total += item.amountInput * item.avgPrice;
       return item;
     });
     this.setState({ addedIngredients:updatedList, total });
@@ -80,8 +138,10 @@ class App extends React.Component {
         </Row>
         <Row>
           <Col>
+          { this.state.isLoading ? 'Loading...' : ''}
             <AddedIngredientsList 
               list={ this.state.addedIngredients }
+              amountInput = {0}
               handleDelete = { this.handleDelete }
               handleAmountChange={ this.handleAmountChange }/>
           </Col>

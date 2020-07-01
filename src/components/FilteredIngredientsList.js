@@ -10,7 +10,7 @@ class FilteredIngredientsList extends React.Component {
 				{ this.props.list.map((item) => {
 					return (
 						<FilteredIngredient 
-							key = {item.id}
+							key = { item.searchableId }
 							ingredient = { item }
 							handleAdd = { this.props.handleAdd } 
 						/>);

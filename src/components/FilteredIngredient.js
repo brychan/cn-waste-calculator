@@ -16,7 +16,7 @@ class FilteredIngredient extends React.Component {
 			<Row className="border-top border-secondary py-1">
 				<Col className="align-self-center">
 					<span>
-						{this.props.ingredient.rawName}
+						{this.props.ingredient.name}
 					</span>
 				</Col>
 				<Col xs="3" className="float-right">

@@ -1,6 +1,5 @@
 import React from 'react';
 import AddedIngredient from './AddedIngredient';
-import { Container, Row, Col } from 'reactstrap';
 
 class AddedIngredientsList extends React.Component {
 	render () {
@@ -11,7 +10,8 @@ class AddedIngredientsList extends React.Component {
 							return (
 								<AddedIngredient
 									key = {item.listId}
-									ingredient = { item } 
+									ingredient = { item }
+									amountInput = { this.props.amountInput } 
 									handleDelete = { this.props.handleDelete }
 									handleAmountChange = { this.props.handleAmountChange } 
 								/>
