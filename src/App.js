@@ -21,7 +21,9 @@ class App extends React.Component {
     this.handleDelete = this.handleDelete.bind(this);
   }
   callAPI() {
-    fetch("http://192.168.1.159:9001/book")
+    let PROD_URL = "https://ingredientsbook-api.herokuapp.com/book"
+    let DEV_URL = "http://192.168.1.159:9001/book"
+    fetch(process.NODE_ENV === "development" ? DEV_URL : PROD_URL)
       .then(res => res.text())
       .then(res => {
         this.createSearchableTable(JSON.parse(res));
@@ -138,12 +140,14 @@ class App extends React.Component {
         </Row>
         <Row>
           <Col>
-          { this.state.isLoading ? 'Loading...' : ''}
+          { this.state.isLoading ? 'Loading...' : '' }
+          { console.log('Env: ', process.env.NODE_ENV) }
             <AddedIngredientsList 
               list={ this.state.addedIngredients }
               amountInput = {0}
               handleDelete = { this.handleDelete }
               handleAmountChange={ this.handleAmountChange }/>
+          }
           </Col>
         </Row>
           <SearchBox 
