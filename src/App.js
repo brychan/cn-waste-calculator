@@ -21,9 +21,9 @@ class App extends React.Component {
     this.handleDelete = this.handleDelete.bind(this);
   }
   callAPI() {
-    let PROD_URL = "https://ingredientsbook-api.herokuapp.com/book"
-    let DEV_URL = "http://192.168.1.159:9001/book"
-    fetch(process.NODE_ENV === "development" ? DEV_URL : PROD_URL)
+    let PROD_URL = "https://ingredientsbook-api.herokuapp.com/book";
+    let DEV_URL = "http://192.168.1.159:9001/book";
+    fetch( process.env.NODE_ENV === "development" ? DEV_URL : PROD_URL )
       .then(res => res.text())
       .then(res => {
         this.createSearchableTable(JSON.parse(res));
@@ -61,25 +61,25 @@ class App extends React.Component {
       table.push(item);
     });
     response.recipes.forEach((recipe) => {
-      let price = response.recipesIngredients.map((ri) => {
-        let result = 0;
+      let output_weight = 0;
+      let price = 0;
+      response.recipesIngredients.forEach((ri) => {
         if (recipe.id === ri.recipe) {
-          let ingredient = {} 
+          let ingredient = null; 
           if (ri.type === 'i') {
             ingredient = table.find( o => o.id === ri.ingredient && o.type === 'ingredient');
-
           } else {
             ingredient = table.find( o => o.id === ri.processed_ingredient && o.type === 'processedIngredient');
           }
-          result = ingredient ? ingredient.avgPrice * ri.amount : 0;
+          price = ingredient ? ((ingredient.avgPrice * ri.amount) + price) : price;
+          output_weight = output_weight + ri.amount;
         }
-        return result;
-      })
+      });
       let item = {
         id: recipe.id,
         searchableId: uuidv4(),
         name: recipe.name,
-        avgPrice: price.reduce((a, b) => (a+b), 0),
+        avgPrice: price / output_weight,
         unit: recipe.output_weight_unit,
         type: 'recipe'
       }
@@ -141,13 +141,11 @@ class App extends React.Component {
         <Row>
           <Col>
           { this.state.isLoading ? 'Loading...' : '' }
-          { console.log('Env: ', process.env.NODE_ENV) }
             <AddedIngredientsList 
               list={ this.state.addedIngredients }
               amountInput = {0}
               handleDelete = { this.handleDelete }
               handleAmountChange={ this.handleAmountChange }/>
-          }
           </Col>
         </Row>
           <SearchBox 
