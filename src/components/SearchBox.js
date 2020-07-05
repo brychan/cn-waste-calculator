@@ -42,34 +42,42 @@ class SearchBox extends React.Component {
 		this.setState(state => ({ toggle: !state.toggle }))
 	}
 
-	render () {
-		return (
-			<Row xs="1" className="fixed-bottom bg-dark text-white p-1">
-				<Col>
-					<small className="">
-					{ (this.state.toggle) ? 
-						`Showing ${ this.state.results.length } results.` :
-						`Hiding ${this.state.results.length} results.`
-					}
-					</small>
-					{ (this.state.results.length > 0) ?
-						<Button 
+	renderButtonPanel(resultsAmount) {
+		let text, hide, close = null;
+		if (resultsAmount > 0) {
+			text = 	<small className="float-left m-2">
+						{ (this.state.toggle) ? 
+							`Showing ${ resultsAmount } results.` :
+							`Hiding ${ resultsAmount } results.`
+						}
+					</small>;
+			hide = <Button 
 						color="danger"
 						size="sm"
-						className="float-right m-1 align-self-center"
-						onClick={ this.handleClose }>&#9747;</Button> : ''
-					 }
-					 { (this.state.results.length > 0) ?
-					 	<Button
-						 	className="float-right m-1 align-self-center"
-						 	size="sm"
-						 	color={(this.state.toggle) ? 'secondary' : 'info'}
-						 	onClick={ this.onToggle }>{
-						 		(this.state.toggle) ?
-						 			'\u2198' : '\u2196'
-						 	}</Button>
-					 	: ''
-					 }
+						className="float-right m-1"
+						onClick={ this.handleClose }>&#9747;
+					</Button>;
+			close = <Button
+					 	className="float-right m-1"
+					 	size="sm"
+					 	color={(this.state.toggle) ? 'secondary' : 'info'}
+					 	onClick={ this.onToggle }>
+						 	{ (this.state.toggle) ? '\u2198' : '\u2196' }
+					</Button>;
+		}
+
+		return (<div>
+			{ text }
+			{ hide }
+			{ close }
+		</div>);
+	}
+
+	render () {
+		return (
+			<Row className="fixed-bottom bg-dark text-white p-1 container-width mx-auto">
+				<Col>
+					{ this.renderButtonPanel(this.state.results.length) }
 				</Col>
 				<div className="w-100"></div>
 
@@ -81,7 +89,7 @@ class SearchBox extends React.Component {
 				</Col>
 				<div className="w-100"></div>
 
-				<Col className="px-4 bg-dark">
+				<Col className="px-2 bg-dark">
 					<SearchInput
 						currentValue={this.state.ingredientInput} 
 						onInputChange={this.handleChange} />

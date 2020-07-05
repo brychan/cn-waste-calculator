@@ -67,9 +67,9 @@ class App extends React.Component {
         if (recipe.id === ri.recipe) {
           let ingredient = null; 
           if (ri.type === 'i') {
-            ingredient = table.find( o => o.id === ri.ingredient && o.type === 'ingredient');
+            ingredient = table.find( o => o.id === ri.id_item && o.type === 'ingredient');
           } else {
-            ingredient = table.find( o => o.id === ri.processed_ingredient && o.type === 'processedIngredient');
+            ingredient = table.find( o => o.id === ri.id_item && o.type === 'processedIngredient');
           }
           price = ingredient ? ((ingredient.avgPrice * ri.amount) + price) : price;
           output_weight = output_weight + ri.amount;
@@ -134,7 +134,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <Container className="themed-container">
+      <Container className="themed-container container-width">
         <Row className="text-white bg-dark text-center pt-1">
           <Header total={ this.state.total } />
         </Row>
@@ -148,7 +148,7 @@ class App extends React.Component {
               handleAmountChange={ this.handleAmountChange }/>
           </Col>
         </Row>
-          <SearchBox 
+          <SearchBox
             list={ this.state.allIngredients }
             handleAdd={ this.handleAdd } />
       </Container>
