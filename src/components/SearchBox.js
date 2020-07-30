@@ -11,7 +11,7 @@ class SearchBox extends React.Component {
 		this.state = {
 	      ingredientInput: '',
 	      results: [],
-	      toggle: true
+	      toggle: true,
 		}
 
 		this.handleChange = this.handleChange.bind(this);
@@ -35,6 +35,7 @@ class SearchBox extends React.Component {
 		}
 	}
 
+
 	handleClose() {
 		this.setState({ ingredientInput: '',
 						results: [], 
@@ -45,45 +46,12 @@ class SearchBox extends React.Component {
 		this.setState(state => ({ toggle: !state.toggle }))
 	}
 
-	renderButtonPanel(resultsAmount) {
-		let text, hide, close = null;
-		if (resultsAmount > 0) {
-			text = 	<small className="float-left m-2">
-						{ (this.state.toggle) ? 
-							`Showing ${ resultsAmount } results.` :
-							`Hiding ${ resultsAmount } results.`
-						}
-					</small>;
-			hide = <Button 
-						color="danger"
-						size="sm"
-						className="float-right m-1"
-						onClick={ this.handleClose }>&#9747;
-					</Button>;
-			close = <Button
-					 	className="float-right m-1"
-					 	size="sm"
-					 	color={(this.state.toggle) ? 'secondary' : 'info'}
-					 	onClick={ this.onToggle }>
-						 	{ (this.state.toggle) ? '\u2198' : '\u2196' }
-					</Button>;
-		}
-
-		return (<div>
-			{ text }
-			{ hide }
-			{ close }
-		</div>);
-	}
-
 	renderCollapseButton(resultsAmount) {
 		let button = null;
 		if (resultsAmount > 0) {
 			button = <div
 					 	className="float-middle m-1 p-0 text-light"
 					 	role="button"
-					 	//size="sm"
-					 	//color={(this.state.toggle) ? 'secondary' : 'info'}
 					 	onClick={ this.onToggle }>
 						
 						<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="-20px"
@@ -93,7 +61,7 @@ class SearchBox extends React.Component {
 								<path
 									transform="translate(0, 100)" 
 									fill="white" 
-									d={ this.state.toggle ? 
+									d={ !this.state.toggle ? 
 									"M225.923,354.706c-8.098,0-16.195-3.092-22.369-9.263L9.27,151.157c-12.359-12.359-12.359-32.397,0-44.751 c12.354-12.354,32.388-12.354,44.748,0l171.905,171.915l171.906-171.909c12.359-12.354,32.391-12.354,44.744,0 c12.365,12.354,12.365,32.392,0,44.751L248.292,345.449C242.115,351.621,234.018,354.706,225.923,354.706z"
 									:
 									"M248.292,106.406l194.281,194.29c12.365,12.359,12.365,32.391,0,44.744c-12.354,12.354-32.391,12.354-44.744,0 L225.923,173.529L54.018,345.44c-12.36,12.354-32.395,12.354-44.748,0c-12.359-12.354-12.359-32.391,0-44.75L203.554,106.4 c6.18-6.174,14.271-9.259,22.369-9.259C234.018,97.141,242.115,100.232,248.292,106.406z"
@@ -101,24 +69,21 @@ class SearchBox extends React.Component {
 									/>
 							</g>
 						</svg>
-
-						 	{ /*(this.state.toggle) ? '\u2198' : '\u2196' */}
 					</div>;
 		}
 		return button;
 	}
 
 	render () {
+
 		return (
 			<Col>
 				<Col className="w-100 bg-dark">
 					<SearchInput
 						currentValue={this.state.ingredientInput} 
-						onInputChange={this.handleChange} />
+						onInputChange={this.handleChange}
+						inputRef = { el => this.searchInputRef = el } />
 				</Col>
-				{/*<Col>
-					{ this.renderButtonPanel(this.state.results.length) }
-				</Col>*/}
 
 				<div className="w-100"></div>
 
@@ -126,7 +91,8 @@ class SearchBox extends React.Component {
 			       <SearchResults 
 					list={this.state.results}
 					toggle={this.state.toggle} 
-					handleAdd= { this.props.handleAdd } />
+					handleAdd = { this.props.handleAdd }
+					searchInputRef = { this.searchInputRef } />
 					<div className="d-flex justify-content-center">
 						{ this.renderCollapseButton(this.state.results.length) }
 					</div>

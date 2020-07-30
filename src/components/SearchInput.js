@@ -17,6 +17,8 @@ class SearchInput extends React.Component {
 				type="text"
 				placeholder="Type an ingredient..." 
 				name="ingredient"
+				///change search input
+				innerRef = { this.props.inputRef }
 				className="my-1 mx-0 px-3 text-white border-0 bg-secondary" 
 				value={ this.props.currentValue } 
 				onChange={ this.handleChange } />

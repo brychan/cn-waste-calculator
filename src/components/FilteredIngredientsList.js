@@ -13,7 +13,7 @@ class FilteredIngredientsList extends React.Component {
 							key = { item.searchableId }
 							ingredient = { item }
 							handleAdd = { this.props.handleAdd } 
-						/>);
+							searchInputRef = { this.props.searchInputRef }/>);
 				})} 
 			</Container>
 		);

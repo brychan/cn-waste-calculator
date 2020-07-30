@@ -56,7 +56,8 @@ function SearchResults(props) {
               <animated.div className="item" style={aprops}>
                 <FilteredIngredientsList  
                   list={ props.list }
-                  handleAdd = { props.handleAdd } />
+                  handleAdd = { props.handleAdd }
+                  searchInputRef = { props.searchInputRef } />
               </animated.div>
             )}
           </Spring>

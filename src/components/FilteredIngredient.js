@@ -9,6 +9,7 @@ class FilteredIngredient extends React.Component {
 
 	handleAdd() {
 		this.props.handleAdd(this.props.ingredient);
+		this.props.searchInputRef.focus();
 	}
 
 	render() {

@@ -16,14 +16,14 @@ class AddedIngredientAmountInput extends React.Component {
 		<InputGroup>
 			<Input 
 				type="text" 
-				name="amount" 
+				name="amount"
 				placeholder="0"
 				value={ this.props.ingredient.amountInput > 0 ? this.props.ingredient.amountInput : ''} 
 				onChange={ this.handleChange } />
 	        <InputGroupAddon addonType="append">
 	          	<Button 
 	          		color="danger"
-	          		tabindex="-1"
+	          		tabIndex="-1"
 	          		onClick = { () => this.props.handleDelete(this.props.ingredient.listId) }>
 	          		X
 	          	</Button>
