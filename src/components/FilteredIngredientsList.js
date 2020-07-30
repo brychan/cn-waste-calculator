@@ -6,7 +6,7 @@ import FilteredIngredient from './FilteredIngredient';
 class FilteredIngredientsList extends React.Component {
 	render () {
 		return (
-			<Container fluid={true}>
+			<Container fluid={true} className="px-0">
 				{ this.props.list.map((item) => {
 					return (
 						<FilteredIngredient 

@@ -21,10 +21,20 @@
 	margin: 0 0 0 -250px;
 }
 
-.search-results-wrapper.is-nav-open{
+.search-results-wrapper.is-nav-open {
 	margin-left: 0;
 }
 
+.left-0 {
+	left: 0 !important;
+}
+
+.display-none {
+	display: none;
+}
+.zindex-dropdown {
+	z-index: 1000 !important;
+}
 
 @media (min-width: 576px) { 
 	.container-width {

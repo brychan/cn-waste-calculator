@@ -23,6 +23,7 @@ class AddedIngredientAmountInput extends React.Component {
 	        <InputGroupAddon addonType="append">
 	          	<Button 
 	          		color="danger"
+	          		tabindex="-1"
 	          		onClick = { () => this.props.handleDelete(this.props.ingredient.listId) }>
 	          		X
 	          	</Button>

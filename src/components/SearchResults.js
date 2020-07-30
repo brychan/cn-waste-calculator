@@ -1,28 +1,68 @@
 import React from 'react';
 import { Spring, animated } from 'react-spring/renderprops';
+//import { useTransition, animated } from 'react-spring';
 import FilteredIngredientsList from './FilteredIngredientsList';
 
-class SearchResults extends React.Component {
-	render () {
-		return (
 
 
-			<Spring
+function SearchResults(props) {
+  /*const animationProps = useSpring({
+      dspl: props.toggle ? 1 : 0,
+      height: props.toggle ? 'auto' : 0, 
+      //opacity: props.toggle ? 1 : 0,
+  })*/
+	//return (
+    /*<animated.div 
+      style={{
+        ...animationProps,
+        display: animationProps.dspl.interpolate((displ) =>
+          displ === 0 ? 'none' : 'initial'
+        ),
+      }}>
+
+
+    <FilteredIngredientsList  
+                  list={ props.list }
+                  handleAdd = { props.handleAdd } />
+    </animated.div>);*/
+			/*return (<Spring
             native
             force
             config={{ tension: 2000, friction: 100, precision: 1 }}
-            from={{ height: this.props.toggle ? 0 : 'auto', opacity: this.props.toggle ? 0: 1 }}
-            to={{ height: this.props.toggle ? 'auto' : 0, opacity: this.props.toggle ? 1 : 0}}>
-            {props => (
-              <animated.div className="item" style={props}>
-				<FilteredIngredientsList  
-					list={ this.props.list }
-					handleAdd = { this.props.handleAdd } />
+            to={{ height: props.toggle ? 'auto' : 0, opacity: props.toggle ? 1 : 0 }}>
+            { animationProps => (
+              <animated.div 
+                className="item" 
+                style={{
+                  ...animationProps,
+                  display: props.toggle ? 'initial' : 'none'
+                }}>
+        				<FilteredIngredientsList  
+                  list={ props.list }
+                  handleAdd = { props.handleAdd } />
+              </animated.div>
+            )}
+      </Spring>);*/
+
+      return <Spring
+            native
+            force
+            config={{ tension: 2000, friction: 100, precision: 1 }}
+            to={{ 
+              height: props.toggle ? 'auto' : 0,
+              display: props.toggle ? 'block' : 'none'
+            }}>
+            {aprops => (
+              <animated.div className="item" style={aprops}>
+                <FilteredIngredientsList  
+                  list={ props.list }
+                  handleAdd = { props.handleAdd } />
               </animated.div>
             )}
           </Spring>
-		);
-	}
+
+
+
 }
 
 export default SearchResults;

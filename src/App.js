@@ -26,7 +26,6 @@ class App extends React.Component {
     fetch( process.env.NODE_ENV === "development" ? DEV_URL : PROD_URL )
       .then(res => res.text())
       .then(res => {
-        this.createSearchableTable(JSON.parse(res));
         this.setState({ allIngredients: this.createSearchableTable(JSON.parse(res)) });
       });
   }
@@ -138,9 +137,14 @@ class App extends React.Component {
         <Row className="text-white bg-dark text-center pt-1">
           <Header total={ this.state.total } />
         </Row>
+        <Row className="text-white bg-dark text-center">
+         <SearchBox
+              list={ this.state.allIngredients }
+              handleAdd={ this.handleAdd } />
+        </Row>
         <Row>
           <Col>
-          { this.state.isLoading ? 'Loading...' : '' }
+          { this.state.isLoading ? 'Loading data, it might take a minute...' : '' }
             <AddedIngredientsList 
               list={ this.state.addedIngredients }
               amountInput = {0}
@@ -148,9 +152,6 @@ class App extends React.Component {
               handleAmountChange={ this.handleAmountChange }/>
           </Col>
         </Row>
-          <SearchBox
-            list={ this.state.allIngredients }
-            handleAdd={ this.handleAdd } />
       </Container>
     );
   }

@@ -18,7 +18,9 @@ class AddedIngredientsList extends React.Component {
 								);
 						}) 
 					:
-						'No items added' 
+						<div className="py-3">
+							No items added.
+						</div>
 			}
 			</div>
 		);
