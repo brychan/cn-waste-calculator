@@ -31,7 +31,7 @@ class SearchBox extends React.Component {
 		}
 		if ( value.length >= 3 ) {
 			let results = this.getResults(value);
-			this.setState({ results: results });
+			this.setState({ results: results, toggle: true });
 		}
 	}
 
