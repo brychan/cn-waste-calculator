@@ -152,6 +152,9 @@ class App extends React.Component {
               handleAmountChange={ this.handleAmountChange }/>
           </Col>
         </Row>
+        <Row>
+          <Col className="small">Last updated: 07/2020.</Col>
+        </Row>
       </Container>
     );
   }
