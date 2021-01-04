@@ -43,6 +43,7 @@ class App extends React.Component {
         name: ingredient.name,
         avgPrice: ingredient.average_price_unit,
         unit: ingredient.unit,
+        weightPerUnit: ingredient.weight_per_unit,
         type: 'ingredient'
       }
       table.push(item);
@@ -71,7 +72,7 @@ class App extends React.Component {
             ingredient = table.find( o => o.id === ri.id_item && o.type === 'processedIngredient');
           }
           price = ingredient ? ((ingredient.avgPrice * ri.amount) + price) : price;
-          output_weight = output_weight + ri.amount;
+          output_weight = output_weight + ( ri.amount * ingredient.weightPerUnit );
         }
       });
       let item = {
@@ -80,6 +81,7 @@ class App extends React.Component {
         name: recipe.name,
         avgPrice: price / output_weight,
         unit: recipe.output_weight_unit,
+        batchWeight: output_weight,
         type: 'recipe'
       }
       table.push(item);
@@ -153,7 +155,7 @@ class App extends React.Component {
           </Col>
         </Row>
         <Row>
-          <Col className="small">Last updated: 07/2020.</Col>
+          <Col className="small">Last updated: 12/2020.</Col>
         </Row>
       </Container>
     );

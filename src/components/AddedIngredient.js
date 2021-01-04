@@ -32,7 +32,7 @@ class AddedIngredient extends React.Component {
 				{ this.props.ingredient.name }
 				{ badge() }
 				<br/>
-				<small className="text-muted">Add amount in <b>grams</b>.</small>
+				<small className="text-muted">Add amount in <b>{ this.props.ingredient.unit }</b>.</small>
 			</Col>
 			<Col xs="4" className="align-self-center">
 				<AddedIngrentAmountInput
