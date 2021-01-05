@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/cn-waste-calculator/static/css/main.5ecd60fb.chunk.css",
+    "main.js": "/cn-waste-calculator/static/js/main.70ad93f5.chunk.js",
+    "main.js.map": "/cn-waste-calculator/static/js/main.70ad93f5.chunk.js.map",
+    "runtime-main.js": "/cn-waste-calculator/static/js/runtime-main.0290a987.js",
+    "runtime-main.js.map": "/cn-waste-calculator/static/js/runtime-main.0290a987.js.map",
+    "static/js/2.d575db1d.chunk.js": "/cn-waste-calculator/static/js/2.d575db1d.chunk.js",
+    "static/js/2.d575db1d.chunk.js.map": "/cn-waste-calculator/static/js/2.d575db1d.chunk.js.map",
+    "index.html": "/cn-waste-calculator/index.html",
+    "precache-manifest.46394cee162b67d6666a2ef5532417de.js": "/cn-waste-calculator/precache-manifest.46394cee162b67d6666a2ef5532417de.js",
+    "service-worker.js": "/cn-waste-calculator/service-worker.js",
+    "static/css/main.5ecd60fb.chunk.css.map": "/cn-waste-calculator/static/css/main.5ecd60fb.chunk.css.map",
+    "static/js/2.d575db1d.chunk.js.LICENSE.txt": "/cn-waste-calculator/static/js/2.d575db1d.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0290a987.js",
+    "static/js/2.d575db1d.chunk.js",
+    "static/css/main.5ecd60fb.chunk.css",
+    "static/js/main.70ad93f5.chunk.js"
+  ]
+}
