@@ -19,6 +19,7 @@ class App extends React.Component {
     this.handleAdd = this.handleAdd.bind(this);
     this.handleAmountChange = this.handleAmountChange.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleRemoveAll = this.handleRemoveAll.bind(this);
   }
   callAPI() {
     let PROD_URL = "https://ingredientsbook-api.herokuapp.com/book";
@@ -133,11 +134,17 @@ class App extends React.Component {
     this.setState({ addedIngredients:updatedList, total });
   }
 
+  handleRemoveAll(){
+    this.setState({ addedIngredients: [], total: 0});
+  }
+
   render() {
     return (
       <Container className="themed-container container-width">
         <Row className="text-white bg-dark text-center pt-1">
-          <Header total={ this.state.total } />
+          <Header 
+            handleRemoveAll={ this.handleRemoveAll }
+            total={ this.state.total } />
         </Row>
         <Row className="text-white bg-dark text-center">
          <SearchBox
