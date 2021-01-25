@@ -5,16 +5,17 @@ class Header extends React.Component {
 	render() {
 		return (
 			<Row className="w-100">
-				<Col className="align-self-center">
-					<span className="h2 display-8">Total { this.props.total.toFixed(2) } sek</span>
+				<Col className="text-left ml-3">
+					<span className="h2 display-8">Total { this.props.total.toFixed(1) }kr</span>
 				</Col>
-				<Col xs="3" className="float-right">
+				<Col className="float-right col-auto">
+					{ this.props.list.length > 0 && (
 					<Button 
 						color="danger"
-						tabIndex="-1"
 						onClick = { () => this.props.handleRemoveAll() }>
-						Remove all
-					</Button>
+						Remove all({this.props.list.length})
+					</Button> 
+					)}
 				</Col>
 			</Row>
 

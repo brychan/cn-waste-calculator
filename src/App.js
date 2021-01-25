@@ -144,6 +144,7 @@ class App extends React.Component {
         <Row className="text-white bg-dark text-center pt-1">
           <Header 
             handleRemoveAll={ this.handleRemoveAll }
+            list = { this.state.addedIngredients }
             total={ this.state.total } />
         </Row>
         <Row className="text-white bg-dark text-center">
